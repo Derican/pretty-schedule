@@ -1,0 +1,20 @@
+.schedule-table {}
+
+.day {
+    min-width: 200px;
+}
+
+.blank {
+    height: 2px;
+}
+
+.course-name {
+    background-color: bisque;
+    height: 2px;
+    text-align: center;
+}
+
+.course-blank {
+    width: 20px;
+    height: 0.5px;
+}
