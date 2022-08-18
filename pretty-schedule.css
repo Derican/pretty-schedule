@@ -1,20 +1,68 @@
-.schedule-table {}
+.schedule-table {
+    table-layout: fixed;
+    white-space: pre-line;
+    word-break: break-all;
+    border-collapse: collapse;
+}
 
 .day {
     min-width: 200px;
+    min-height: 100px;
+    border-bottom: 1px solid lightgray;
+    border-left: 1px solid lightgray;
 }
 
 .blank {
-    height: 2px;
+    border-right: 1px solid lightgray;
+}
+
+.course-time {
+    border-right: 1px solid lightgray;
+    border-top: 1px solid lightgray;
 }
 
 .course-name {
-    background-color: bisque;
-    height: 2px;
+    z-index: 112;
     text-align: center;
 }
 
 .course-blank {
     width: 20px;
-    height: 0.5px;
+    height: 3px;
+}
+
+@keyframes shadowIn {
+    0% {
+        box-shadow: 0px 0px 0px 0px rgb(255, 255, 255);
+    }
+
+    100% {
+        box-shadow: 0px 10px 10px 0px hsla(0, 0%, 0%, 0.25);
+    }
+}
+
+.shadow-in {
+    animation-name: shadowIn;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+}
+
+@keyframes shadowOut {
+    0% {
+        box-shadow: 0px 10px 10px 0px hsla(0, 0%, 0%, 0.25);
+    }
+
+    100% {
+        box-shadow: 0px 0px 0px 0px rgb(255, 255, 255);
+    }
+}
+
+.shadow-out {
+    animation-name: shadowOut;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
 }

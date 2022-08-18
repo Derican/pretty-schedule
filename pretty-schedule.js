@@ -2,13 +2,39 @@
     "use strict";
     var defaults = {
         timespans: [['0800', '0845'], ['0850', '0935'], ['0950', '1035'], ['1040', '1125'], ['1130', '1215'], ['1330', '1415'], ['1420', '1505'], ['1520', '1605'], ['1610', '1655'], ['1705', '1750'], ['1755', '1840'], ['1920', '2005'], ['2010', '2055'], ['2100', '2145']],
+        timespanDesc: [{
+            from: 0,
+            to: 1,
+            text: "第一大节"
+        }, {
+            from: 2,
+            to: 4,
+            text: "第二大节"
+        }, {
+            from: 5,
+            to: 6,
+            text: "第三大节"
+        }, {
+            from: 7,
+            to: 8,
+            text: "第四大节"
+        }, {
+            from: 9,
+            to: 10,
+            text: "第五大节"
+        }, {
+            from: 11,
+            to: 13,
+            text: "第六大节"
+        },],
         weekdays: 5,
         weekdayNames: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-        curriculum: [[['0800', '0935', '课表示例', 'Sample Course']], [], [], [], []],
+        curriculum: [[['0800', '0935', '课表示例1', 'Sample Course1']], [['0950', '1125', '课表示例2', 'Sample Course2']], [['1330', '1605', '课表示例3', 'Sample Course3']], [['1520', '1840', '课表示例4', 'Sample Course4']], [['1920', '2145', '课表示例3', 'Sample Course3']]],
         interval: 5,
         start: '0800',
         end: '2145',
         breakVisible: false,
+        colorPool: ['#F4F2F3', 'FBE0C3', '#C3CBD6', '#FFD5AF', '#F6F4E8', '#F8EFEA', '#F2EBE5', '#FAE6B1', '#F8D4BA', '#F7F4EF', '#F7F1ED', '#F0EFF4', '#F2E9EB', '#E8ECEB'],
     };
 
     function QuaternaryTimeInterval(timeA, timeB) {
@@ -17,6 +43,15 @@
         var h2 = parseInt(timeB.slice(0, 2));
         var m2 = parseInt(timeB.slice(2, 4));
         return h2 * 60 + m2 - h1 * 60 - m1;
+    }
+
+    function insertStr(source, start, newStr) {
+        return source.slice(0, start) + newStr + source.slice(start);
+    }
+
+    function getRandomColor(pool) {
+        var index = Math.floor(Math.random() * pool.length);
+        return pool[index];
     }
 
     function PrettySchedule($ele, options) {
@@ -29,6 +64,8 @@
                 this.courseNametoDesc[courseName] = courseDesc;
             })
         });
+        this.timeNametoDesc = {};
+        this.cachedColorMap = {};
         this.init();
     }
     PrettySchedule.prototype = {
@@ -60,9 +97,24 @@
                     }
                 }
             }
+            var mergedRowspans = [], mergedBreakspans = [];
+            for (var i = 0; i < options.timespanDesc.length; i++) {
+                var mergeInfo = options.timespanDesc[i];
+                var mergedSpan = 0;
+                for (var j = mergeInfo['from']; j <= mergeInfo['to']; j++) {
+                    mergedSpan += rowspans[j];
+                    if (j < mergeInfo['to'] && options.breakVisible) {
+                        mergedSpan += breakspans[j];
+                    }
+                }
+                mergedRowspans.push({ span: mergedSpan, desc: mergeInfo['text'] });
+                if (mergeInfo['to'] < breakspans.length) { mergedBreakspans.push(breakspans[mergeInfo['to']]); }
+
+                this.timeNametoDesc[mergeInfo['text']] = insertStr(options.timespans[mergeInfo['from']][0], 2, ':') + '~' + insertStr(options.timespans[mergeInfo['to']][1], 2, ':');
+            }
 
             var html = [];
-            html.push('<table class="schedule-table">');
+            html.push('<table class="schedule-table" cellpadding="0" cellspacing="0">');
             html.push('<tr>');
             // left-up corner blank
             html.push('<th class="day blank"> </th>')
@@ -76,11 +128,11 @@
             for (var curRow = 0; curRow < rows; curRow++) {
                 html.push('<tr>');
                 if (curRow >= timeEnd) {
-                    html.push(`<th rowspan="${rowspans[timespanEnd]}" class="time">${timespanEnd + 1}</th>`);
-                    timeEnd += rowspans[timespanEnd];
-                    if (timespanEnd != rowspans.length - 1 && options.breakVisible) {
-                        html.push(`<th rowspan="${breakspans[timespanEnd]}" class="time"> </th>`);
-                        timeEnd += breakspans[timespanEnd];
+                    html.push(`<th rowspan="${mergedRowspans[timespanEnd]['span']}" class="course-time">${mergedRowspans[timespanEnd]['desc']}</th>`);
+                    timeEnd += mergedRowspans[timespanEnd]['span'];
+                    if (timespanEnd != mergedRowspans.length - 1 && options.breakVisible) {
+                        html.push(`<th rowspan="${mergedBreakspans[timespanEnd]}" class="course-break"> </th>`);
+                        timeEnd += mergedBreakspans[timespanEnd];
                     }
                     timespanEnd++;
                 }
@@ -88,11 +140,23 @@
                 weekdayEnd.forEach((val, index, arr) => {
                     if (val < options.curriculum[index].length) {
                         var [courseStart, courseEnd, courseName, courseDesc] = options.curriculum[index][val];
-                        if (curRow >= QuaternaryTimeInterval(options.start, courseStart) / options.interval) {
+                        var spansUntil = QuaternaryTimeInterval(options.start, courseStart) / options.interval;
+                        if (!options.breakVisible) {
+                            var be = 0, en = options.timespans.length - 1;
+                            while (en >= be && QuaternaryTimeInterval(courseStart, options.timespans[en][0]) > 0) {
+                                en--;
+                            }
+                            if (be < en) {
+                                for (; be < en; be++) {
+                                    spansUntil -= breakspans[be];
+                                }
+                            }
+                        }
+                        if (curRow >= spansUntil) {
                             var courseSpan = QuaternaryTimeInterval(courseStart, courseEnd) / options.interval;
                             if (!options.breakVisible) {
                                 var be = 0, en = options.timespans.length - 1;
-                                while (be < en && QuaternaryTimeInterval(options.timespans[be][0], courseStart) < 0) {
+                                while (be < en && QuaternaryTimeInterval(options.timespans[be][0], courseStart) > 0) {
                                     be++;
                                 }
                                 while (en >= be && QuaternaryTimeInterval(courseEnd, options.timespans[en][1]) > 0) {
@@ -105,7 +169,12 @@
                                 }
                             }
 
-                            html.push(`<td rowspan="${courseSpan}" class="course-name">${courseName}</td>`);
+                            var courseColor = this.cachedColorMap[courseName];
+                            if (courseColor == undefined) {
+                                courseColor = getRandomColor(options.colorPool);
+                                this.cachedColorMap[courseName] = courseColor;
+                            }
+                            html.push(`<td onmouseover="jQuery(this).stop().animate({boxShadow: '-30px 0 30px #699, 30px 0 30px #969, 0 -30px 30px #996, 0 30px 30px #669'})" rowspan="${courseSpan}" class="course-name" id="${courseName}" style="background-color: ${courseColor};">${courseName}</td>`);
                             arr[index]++;
                         }
                         else {
@@ -143,15 +212,35 @@
         },
         bindEvent: function () {
             var that = this;
+            that.$ele.on("mouseenter", ".course-time", function () {
+                var _this = $(this);
+                var full = _this.text() + '\n' + that.timeNametoDesc[_this.text()];
+                _this.text(full);
+            });
+            that.$ele.on("mouseleave", ".course-time", function () {
+                var _this = $(this);
+                var full = _this.text().split('\n')[0];
+                _this.text(full);
+            })
             that.$ele.on("mouseenter", ".course-name", function () {
                 var _this = $(this);
-                var full = _this.text() + '\n'+that.courseNametoDesc[_this.text()];
+                var full = _this.text() + '\n' + that.courseNametoDesc[_this.text()];
                 _this.text(full);
+                var _id = _this.attr("id");
+                $(`#${_id}`).each(function () {
+                    $(this).removeClass('shadow-out');
+                    $(this).addClass('shadow-in');
+                });
             });
             that.$ele.on("mouseleave", ".course-name", function () {
                 var _this = $(this);
                 var full = _this.text().split('\n')[0];
                 _this.text(full);
+                var _id = _this.attr("id");
+                $(`#${_id}`).each(function () {
+                    $(this).removeClass('shadow-in');
+                    $(this).addClass('shadow-out');
+                });
             })
         }
     };
