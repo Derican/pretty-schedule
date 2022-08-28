@@ -16,9 +16,14 @@
     border-right: 1px solid lightgray;
 }
 
+.day-blank {
+    min-width: 200px;
+    min-height: 100px;
+    border-bottom: 1px solid lightgray;
+}
+
 .course-time {
     border-right: 1px solid lightgray;
-    border-top: 1px solid lightgray;
 }
 
 .course-name {
@@ -29,6 +34,26 @@
 .course-blank {
     width: 20px;
     height: 3px;
+}
+
+.course-break {
+    border-right: 1px solid lightgray;
+}
+
+.has-border-top {
+    border-top: 1px solid lightgray;
+}
+
+.has-border-left {
+    border-left: 1px solid lightgray;
+}
+
+.has-border-bottom {
+    border-bottom: 1px solid lightgray;
+}
+
+.has-border-right {
+    border-right: 1px solid lightgray;
 }
 
 @keyframes shadowIn {
