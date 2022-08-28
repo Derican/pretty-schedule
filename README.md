@@ -21,7 +21,7 @@ Then call the method in your html.
 
 ```json
 {
-  timespans: [
+  "timespans": [
    ["0800", "0845"],
    ["0850", "0935"],
    ["0950", "1035"],
@@ -37,52 +37,52 @@ Then call the method in your html.
    ["2010", "2055"],
    ["2100", "2145"],
   ],
-  timespanDesc: [
+  "timespanDesc": [
    {
-    from: 0,
-    to: 1,
-    text: "第一大节",
+    "from": 0,
+    "to": 1,
+    "text": "第一大节",
    },
    {
-    from: 2,
-    to: 4,
-    text: "第二大节",
+    "from": 2,
+    "to": 4,
+    "text": "第二大节",
    },
    {
-    from: 5,
-    to: 6,
-    text: "第三大节",
+    "from": 5,
+    "to": 6,
+    "text": "第三大节",
    },
    {
-    from: 7,
-    to: 8,
-    text: "第四大节",
+    "from": 7,
+    "to": 8,
+    "text": "第四大节",
    },
    {
-    from: 9,
-    to: 10,
-    text: "第五大节",
+    "from": 9,
+    "to": 10,
+    "text": "第五大节",
    },
    {
-    from: 11,
-    to: 13,
-    text: "第六大节",
+    "from": 11,
+    "to": 13,
+    "text": "第六大节",
    },
   ],
-  weekdays: 5,
-  weekdayNames: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  curriculum: [
+  "weekdays": 5,
+  "weekdayNames": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  "curriculum": [
    [["0800", "0935", "课表示例1", "Sample Course1"]],
    [["0950", "1125", "课表示例2", "Sample Course2"]],
    [["1330", "1605", "课表示例3", "Sample Course3"]],
    [["1520", "1840", "课表示例4", "Sample Course4"]],
    [["1920", "2145", "课表示例3", "Sample Course3"]],
   ],
-  interval: 5,
-  start: "0800",
-  end: "2145",
-  breakVisible: false,
-  colorPool: [
+  "interval": 5,
+  "start": "0800",
+  "end": "2145",
+  "breakVisible": false,
+  "colorPool": [
    "#F4F2F3",
    "#FBE0C3",
    "#C3CBD6",
@@ -97,6 +97,6 @@ Then call the method in your html.
    "#F0EFF4",
    "#F2E9EB",
    "#E8ECEB",
-  ],
+  ]
  }
 ```
