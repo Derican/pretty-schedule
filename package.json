@@ -1,0 +1,23 @@
+{
+  "name": "pretty-schedule",
+  "version": "1.0.1",
+  "description": "A simple plugin allows you to create an interactive schedule with custom configurations.",
+  "main": "pretty-schedule.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Derican/pretty-schedule.git"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery"
+  ],
+  "author": "Derican",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/Derican/pretty-schedule/issues"
+  },
+  "homepage": "https://github.com/Derican/pretty-schedule#readme"
+}

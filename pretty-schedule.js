@@ -180,10 +180,14 @@
 			);
 			html.push("<tr>");
 			// left-up corner blank
-			html.push('<th class="day-blank"> </th>');
+			html.push('<th class="day-blank has-border-bottom"> </th>');
 			// weekdays
 			for (var i = 0; i < cols; i++) {
-				html.push('<th class="day">' + options.weekdayNames[i] + "</th>");
+				html.push(
+					'<th class="day has-border-bottom has-border-left">' +
+						options.weekdayNames[i] +
+						"</th>"
+				);
 			}
 			html.push("</tr>");
 			// timespans and curriculums
@@ -197,11 +201,11 @@
 					if (!options.breakVisible || isLastCourse == false) {
 						if (timespanEnd != mergedRowspans.length - 1)
 							html.push(
-								`<th rowspan="${mergedRowspans[timespanEnd]["span"]}" class="course-time has-border-up has-border-bottom">${mergedRowspans[timespanEnd]["desc"]}</th>`
+								`<th rowspan="${mergedRowspans[timespanEnd]["span"]}" class="course-time has-border-up has-border-bottom has-border-right">${mergedRowspans[timespanEnd]["desc"]}</th>`
 							);
 						else
 							html.push(
-								`<th rowspan="${mergedRowspans[timespanEnd]["span"]}" class="course-time">${mergedRowspans[timespanEnd]["desc"]}</th>`
+								`<th rowspan="${mergedRowspans[timespanEnd]["span"]}" class="course-time has-border-right">${mergedRowspans[timespanEnd]["desc"]}</th>`
 							);
 						timeEnd += mergedRowspans[timespanEnd]["span"];
 						isLastCourse = true;
@@ -213,7 +217,7 @@
 						html.push(
 							`<th rowspan="${
 								mergedBreakspans[timespanEnd - 1]
-							}" class="course-break has-border-top has-border-bottom"> </th>`
+							}" class="course-break has-border-top has-border-bottom has-border-right"> </th>`
 						);
 						timeEnd += mergedBreakspans[timespanEnd - 1];
 						isLastCourse = false;
@@ -337,7 +341,7 @@
 				html.push("</tr>");
 			}
 			html.push("</table>");
-			console.log(html.join(""));
+			// console.log(html.join(""));
 			this.$ele.html(html.join(""));
 		},
 		bindEvent: function () {

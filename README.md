@@ -35,38 +35,38 @@ Then call the method in your html.
    ["1755", "1840"],
    ["1920", "2005"],
    ["2010", "2055"],
-   ["2100", "2145"],
+   ["2100", "2145"]
   ],
   "timespanDesc": [
    {
     "from": 0,
     "to": 1,
-    "text": "第一大节",
+    "text": "第一大节"
    },
    {
     "from": 2,
     "to": 4,
-    "text": "第二大节",
+    "text": "第二大节"
    },
    {
     "from": 5,
     "to": 6,
-    "text": "第三大节",
+    "text": "第三大节"
    },
    {
     "from": 7,
     "to": 8,
-    "text": "第四大节",
+    "text": "第四大节"
    },
    {
     "from": 9,
     "to": 10,
-    "text": "第五大节",
+    "text": "第五大节"
    },
    {
     "from": 11,
     "to": 13,
-    "text": "第六大节",
+    "text": "第六大节"
    },
   ],
   "weekdays": 5,
@@ -76,7 +76,7 @@ Then call the method in your html.
    [["0950", "1125", "课表示例2", "Sample Course2"]],
    [["1330", "1605", "课表示例3", "Sample Course3"]],
    [["1520", "1840", "课表示例4", "Sample Course4"]],
-   [["1920", "2145", "课表示例3", "Sample Course3"]],
+   [["1920", "2145", "课表示例3", "Sample Course3"]]
   ],
   "interval": 5,
   "start": "0800",
@@ -96,7 +96,7 @@ Then call the method in your html.
    "#F7F1ED",
    "#F0EFF4",
    "#F2E9EB",
-   "#E8ECEB",
+   "#E8ECEB"
   ]
  }
 ```
