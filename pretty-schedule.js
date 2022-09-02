@@ -52,7 +52,7 @@
 		weekdays: 5,
 		weekdayNames: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 		curriculum: [
-			[["0800", "0935", "课表示例1", "Sample Course1"]],
+			[["0800", "0935", "课表示例(1)", "Sample Course1"]],
 			[["0950", "1125", "课表示例2", "Sample Course2"]],
 			[["1330", "1605", "课表示例3", "Sample Course3"]],
 			[["1520", "1840", "课表示例4", "Sample Course4"]],
@@ -283,7 +283,7 @@
 								this.cachedColorMap[courseName] = courseColor;
 							}
 							html.push(
-								`<td rowspan="${courseSpan}" class="course-name" id="${courseName}" style="background-color: ${courseColor};">${courseName}</td>`
+								`<td rowspan="${courseSpan}" class="course-name" name="${courseName}" style="background-color: ${courseColor};">${courseName}</td>`
 							);
 							arr[index]++;
 						} else {
@@ -360,8 +360,8 @@
 				var _this = $(this);
 				var full = _this.text() + "\n" + that.courseNametoDesc[_this.text()];
 				_this.text(full);
-				var _id = _this.attr("id");
-				$(`#${_id}`).each(function () {
+				var _name = _this.attr("name");
+				$(document.getElementsByName(`${_name}`)).each(function () {
 					$(this).removeClass("shadow-out");
 					$(this).addClass("shadow-in");
 				});
@@ -370,8 +370,8 @@
 				var _this = $(this);
 				var full = _this.text().split("\n")[0];
 				_this.text(full);
-				var _id = _this.attr("id");
-				$(`#${_id}`).each(function () {
+				var _name = _this.attr("name");
+				$(document.getElementsByName(`${_name}`)).each(function () {
 					$(this).removeClass("shadow-in");
 					$(this).addClass("shadow-out");
 				});
