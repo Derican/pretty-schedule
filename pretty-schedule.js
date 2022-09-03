@@ -52,11 +52,30 @@
 		weekdays: 5,
 		weekdayNames: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 		curriculum: [
-			[["0800", "0935", "课表示例(1)", "Sample Course1"]],
-			[["0950", "1125", "课表示例2", "Sample Course2"]],
-			[["1330", "1605", "课表示例3", "Sample Course3"]],
-			[["1520", "1840", "课表示例4", "Sample Course4"]],
-			[["1920", "2145", "课表示例3", "Sample Course3"]],
+			[
+				["0800", "0935", "线性代数", "荆文甲"],
+				["0950", "1215", "微积分A(1)", "王晓峰"],
+				["1330", "1505", "体育(1)", ""],
+				["1705", "1840", "集体锻炼", ""],
+			],
+			[
+				["0800", "0935", "思想道德修养与法律基础", "李瑞奇"],
+				["0950", "1125", "英语听说交流(A)", "吴文忠"],
+				["1330", "1505", "信息科学技术概论", "任天令"],
+			],
+			[
+				["0800", "0935", "微积分A(1)", "王晓峰"],
+				["0950", "1125", "线性代数", "荆文甲"],
+				["1705", "1840", "集体锻炼", ""],
+			],
+			[
+				["0800", "0935", "英语阅读写作(A)", "赵元"],
+				["1705", "1840", "集体锻炼", ""],
+			],
+			[
+				["0950", "1215", "离散数学(1)", "马昱春"],
+				["1330", "1505", "程序设计基础", "王瑀屏"],
+			],
 		],
 		interval: 5,
 		start: "0800",
@@ -286,7 +305,7 @@
 								`<td rowspan="${courseSpan}" class="course-name" name="${courseName}" style="background-color: ${courseColor};">${courseName}</td>`
 							);
 							arr[index]++;
-						} else {
+						} else if (val == 0) {
 							if (curRow == timeEnd - 1 && timespanEnd < mergedRowspans.length)
 								html.push(
 									`<td class="course-blank has-border-bottom has-border-right"> </td>`
@@ -295,6 +314,41 @@
 								html.push(`<td class="course-blank"> </td>`);
 							else
 								html.push(`<td class="course-blank has-border-right"> </td>`);
+						} else {
+							var [courseStart, courseEnd, courseName, courseDesc] =
+								options.curriculum[index][val - 1];
+							var spansUntilLast =
+								QuaternaryTimeInterval(options.start, courseEnd) /
+								options.interval;
+							if (!options.breakVisible) {
+								var be = 0,
+									en = options.timespans.length - 1;
+								while (
+									en >= be &&
+									QuaternaryTimeInterval(courseEnd, options.timespans[en][0]) >
+										0
+								) {
+									en--;
+								}
+								if (be < en) {
+									for (; be < en; be++) {
+										spansUntilLast -= breakspans[be];
+									}
+								}
+							}
+							if (curRow >= spansUntilLast) {
+								if (
+									curRow == timeEnd - 1 &&
+									timespanEnd < mergedRowspans.length
+								)
+									html.push(
+										`<td class="course-blank has-border-bottom has-border-right"> </td>`
+									);
+								else if (index == arr.length - 1)
+									html.push(`<td class="course-blank"> </td>`);
+								else
+									html.push(`<td class="course-blank has-border-right"> </td>`);
+							}
 						}
 					} else if (options.curriculum[index].length > 0) {
 						var [courseStart, courseEnd, courseName, courseDesc] =

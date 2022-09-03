@@ -1,101 +1,101 @@
 table.schedule-table {
-    table-layout: fixed;
-    white-space: pre-line;
-    word-break: break-all;
-    border-collapse: collapse;
+	table-layout: fixed;
+	white-space: pre-line;
+	word-break: break-all;
+	border-collapse: collapse;
 }
 
 table.schedule-table td,
 table.schedule-table th {
-    border: none;
-    padding: 0em 0em;
+	border: none;
+	padding: 0em 0em;
 }
 
 table.schedule-table th.day {
-    min-width: 200px;
-    min-height: 100px;
-    text-align: center;
-    font: 1em sans-serif;
-    vertical-align: middle;
+	min-width: 200px;
+	min-height: 100px;
+	text-align: center;
+	font: 1em sans-serif;
+	vertical-align: middle;
 }
 
 table.schedule-table .day-blank {
-    min-width: 200px;
-    min-height: 100px;
+	min-width: 200px;
+	min-height: 100px;
 }
 
 table.schedule-table th.course-time {
-    text-align: center;
-    font: 1em sans-serif;
-    vertical-align: middle;
+	text-align: center;
+	font: 1em sans-serif;
+	vertical-align: middle;
 }
 
 table.schedule-table .course-name {
-    z-index: 112;
-    text-align: center;
-    font: 1em sans-serif;
-    vertical-align: middle;
+	text-align: center;
+	font: 1em sans-serif;
+	vertical-align: middle;
 }
 
 table.schedule-table .course-blank {
-    width: 20px;
-    height: 3px;
+	width: 20px;
+	height: 3px;
 }
 
-table.schedule-table .course-break {}
+table.schedule-table .course-break {
+}
 
 table.schedule-table th.has-border-top,
 table.schedule-table td.has-border-top {
-    border-top: 1px solid lightgray;
+	border-top: 1px solid lightgray;
 }
 
 table.schedule-table th.has-border-left,
 table.schedule-table td.has-border-left {
-    border-left: 1px solid lightgray;
+	border-left: 1px solid lightgray;
 }
 
 table.schedule-table th.has-border-bottom,
 table.schedule-table td.has-border-bottom {
-    border-bottom: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
 }
 
 table.schedule-table th.has-border-right,
 table.schedule-table td.has-border-right {
-    border-right: 1px solid lightgray;
+	border-right: 1px solid lightgray;
 }
 
 @keyframes shadowIn {
-    0% {
-        box-shadow: 0px 0px 0px 0px rgb(255, 255, 255);
-    }
+	0% {
+		box-shadow: 0px 0px 0px 0px rgb(255, 255, 255);
+	}
 
-    100% {
-        box-shadow: 0px 10px 10px 0px hsla(0, 0%, 0%, 0.25);
-    }
+	100% {
+		box-shadow: 0px 10px 10px 0px hsla(0, 0%, 0%, 0.25);
+	}
 }
 
 .schedule-table .shadow-in {
-    animation-name: shadowIn;
-    animation-duration: 0.5s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-out;
+	animation-name: shadowIn;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease-out;
 }
 
 @keyframes shadowOut {
-    0% {
-        box-shadow: 0px 10px 10px 0px hsla(0, 0%, 0%, 0.25);
-    }
+	0% {
+		box-shadow: 0px 10px 10px 0px hsla(0, 0%, 0%, 0.25);
+	}
 
-    100% {
-        box-shadow: 0px 0px 0px 0px rgb(255, 255, 255);
-    }
+	100% {
+		box-shadow: 0px 0px 0px 0px rgb(255, 255, 255);
+	}
 }
 
 .schedule-table .shadow-out {
-    animation-name: shadowOut;
-    animation-duration: 0.5s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-out;
+	animation-name: shadowOut;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease-out;
 }
