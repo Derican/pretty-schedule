@@ -446,7 +446,7 @@
 					var emptyHeight = (courseSpan * 3 + 1) / (courseSpan - 1);
 
 					html[html.length - 1] = `<tr style="height: ${emptyHeight}px;">`;
-					html.push(`<td> </td>`);
+					// html.push(`<td> </td>`);
 				}
 
 				html.push("</tr>");
