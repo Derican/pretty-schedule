@@ -53,28 +53,31 @@
 		weekdayNames: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 		curriculum: [
 			[
-				["0800", "0935", "线性代数", "荆文甲"],
-				["0950", "1215", "微积分A(1)", "王晓峰"],
-				["1330", "1505", "体育(1)", ""],
+				["0800", "0935", "面向对象程序设计基础", "刘知远"],
+				["0950", "1215", "微积分A(2)", "王晓峰"],
+				["1330", "1655", "制造工程体验", "李双寿"],
 				["1705", "1840", "集体锻炼", ""],
 			],
 			[
-				["0800", "0935", "思想道德修养与法律基础", "李瑞奇"],
-				["0950", "1125", "英语听说交流(A)", "吴文忠"],
-				["1330", "1505", "信息科学技术概论", "任天令"],
+				["0950", "1125", "形势与政策", "蔡万焕"],
+				["1330", "1605", "中国近现代史纲要", "翁贺凯"],
+				["1920", "2145", "中国国情与发展", "胡鞍钢"],
 			],
 			[
-				["0800", "0935", "微积分A(1)", "王晓峰"],
-				["0950", "1125", "线性代数", "荆文甲"],
+				["0800", "0935", "微积分A(2)", "王晓峰"],
+				["0950", "1125", "英语进阶读写", "庞红梅"],
+				["1330", "1505", "大学物理B(1)", "李列明"],
+				["1705", "1840", "集体锻炼", ""],
+				["1920", "2145", "写作与沟通", "薛亘华"],
+			],
+			[
+				["0800", "0935", "高等线性代数选讲", "朱敏娴"],
+				["0950", "1125", "一年级男生体育(2)", "王俊林"],
 				["1705", "1840", "集体锻炼", ""],
 			],
 			[
-				["0800", "0935", "英语阅读写作(A)", "赵元"],
-				["1705", "1840", "集体锻炼", ""],
-			],
-			[
-				["0950", "1215", "离散数学(1)", "马昱春"],
-				["1330", "1505", "程序设计基础", "王瑀屏"],
+				["0950", "1215", "离散数学(2)", "张小平"],
+				["1330", "1505", "大学物理B(1)", "李列明"],
 			],
 		],
 		interval: 5,
@@ -391,6 +394,60 @@
 						else html.push(`<td class="course-blank has-border-right"> </td>`);
 					}
 				});
+
+				if (html[html.length - 1] == "<tr>") {
+					var minEndIndex,
+						minEndValue,
+						minEnd = options.end;
+					weekdayEnd.forEach((value, index, array) => {
+						if (
+							QuaternaryTimeInterval(
+								minEnd,
+								options.curriculum[index][value - 1][1]
+							) < 0
+						) {
+							minEndIndex = index;
+							minEndValue = value - 1;
+							minEnd = options.curriculum[index][value - 1][1];
+						}
+					});
+					var courseSpan =
+						QuaternaryTimeInterval(
+							options.curriculum[minEndIndex][minEndValue][0],
+							options.curriculum[minEndIndex][minEndValue][1]
+						) / options.interval;
+					if (!options.breakVisible) {
+						var be = 0,
+							en = options.timespans.length - 1;
+						while (
+							be < en &&
+							QuaternaryTimeInterval(
+								options.timespans[be][0],
+								options.curriculum[minEndIndex][minEndValue][0]
+							) > 0
+						) {
+							be++;
+						}
+						while (
+							en >= be &&
+							QuaternaryTimeInterval(
+								options.curriculum[minEndIndex][minEndValue][1],
+								options.timespans[en][1]
+							) > 0
+						) {
+							en--;
+						}
+						if (be < en) {
+							for (; be < en; be++) {
+								courseSpan -= breakspans[be];
+							}
+						}
+					}
+					var emptyHeight = (courseSpan * 3 + 1) / (courseSpan - 1);
+
+					html[html.length - 1] = `<tr style="height: ${emptyHeight}px;">`;
+					html.push(`<td> </td>`);
+				}
 
 				html.push("</tr>");
 			}

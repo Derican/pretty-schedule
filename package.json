@@ -1,6 +1,6 @@
 {
   "name": "pretty-schedule",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple plugin allows you to create an interactive schedule with custom configurations.",
   "main": "pretty-schedule.js",
   "scripts": {
